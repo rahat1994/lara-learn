@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CourseResource\Pages;
 use App\Filament\Resources\CourseResource\RelationManagers;
 use App\Models\Course;
+use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
+use AymanAlhattami\FilamentPageWithSidebar\PageNavigationItem;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -23,6 +25,13 @@ class CourseResource extends Resource
     protected static ?string $model = Course::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+
+    protected static ?string $navigationGroup = 'Lara Learn';
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -83,7 +92,19 @@ class CourseResource extends Resource
         return [
             'index' => Pages\ListCourses::route('/'),
             'create' => Pages\CreateCourse::route('/create'),
-            'edit' => Pages\EditCourse::route('/{record}/edit'),
+            'view' => Pages\ViewCourse::route('/{record}'),
+            'edit' => Pages\EditCourse::route('/edit/{record}'),
         ];
+    }
+
+    public static function sidebar(Course $record): FilamentPageSidebar
+    {
+        return FilamentPageSidebar::make()
+            ->setNavigationItems([
+                PageNavigationItem::make('lessons')
+                    ->url(function () use ($record) {
+                        return static::getUrl('lessons', ['record' => $record->id]);
+                    })->icon('heroicon-o-collection'),
+            ]);
     }
 }
