@@ -4,10 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LessonResource\Pages;
 use App\Filament\Resources\LessonResource\RelationManagers;
+use App\Forms\Components\LlDuration;
 use App\Models\Lesson;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -25,6 +28,7 @@ class LessonResource extends Resource
 
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 TextInput::make('title')
@@ -38,6 +42,13 @@ class LessonResource extends Resource
                 TextInput::make('video_url'),
                 Hidden::make('user_id')
                     ->default(fn () => auth()->user()->id),
+                Section::make(__('lesson.settings'))
+                    ->schema([
+                        LlDuration::make('duration'),
+                        Checkbox::make(__('preview'))
+                            ->default(false)
+                            ->helperText(__('lesson.preview_helper_text')),
+                    ]),
             ])->columns(1);
     }
 
