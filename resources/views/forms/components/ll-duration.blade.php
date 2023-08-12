@@ -14,18 +14,28 @@
         </select>
     </span> --}}
 
-
-    <input class="filament-forms-input appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="number" placeholder="15">
-    <select class="filament-forms-input appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-
-        <option value="hours">Hours</option>
-        <option value="days">Days</option>
-        <option value="weeks">Weeks</option>
-        <option value="months">Months</option>
-        <option value="years">Years</option>
-    </select>
+    <span x-data="{duration:$wire.entangle('{{ $getStatePath() }}').defer, duration_count:($wire.{{$getStatePath()}} != null) ? $wire.{{$getStatePath()}}.split(' ')[0]:0, duration_unit: ($wire.{{$getStatePath()}} != null) ? $wire.{{$getStatePath()}}.split(' ')[0]:'minutes'}">
 
 
+
+
+
+
+
+
+
+
+
+        <input @change="duration = duration_count + ' ' + duration_unit" x-model="duration_count" class="filament-forms-input appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="number" placeholder="0">
+        <select @change="duration = duration_count + ' ' + duration_unit" x-model="duration_unit" class="filament-forms-input appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+            <option value="minutes">Minutes</option>
+            <option value="hours">Hours</option>
+            <option value="days">Days</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+            <option value="years">Years</option>
+        </select>
+    </span>
 
 
 

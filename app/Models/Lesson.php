@@ -16,6 +16,8 @@ class Lesson extends Model
         'video_url',
         'user_id',
         'course_id',
+        'duration',
+        'preview',
     ];
     public function sluggable(): array
     {
