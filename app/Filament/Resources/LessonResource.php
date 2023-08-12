@@ -39,7 +39,7 @@ class LessonResource extends Resource
                 RichEditor::make('content')
                     ->required()
                     ->placeholder(__('forms.description')),
-                TextInput::make('video_url'),
+                TextInput::make('video_url')->url(),
                 Hidden::make('user_id')
                     ->default(fn () => auth()->user()->id),
                 Section::make(__('lesson_admin.settings'))
