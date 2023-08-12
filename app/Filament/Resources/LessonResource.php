@@ -42,12 +42,13 @@ class LessonResource extends Resource
                 TextInput::make('video_url'),
                 Hidden::make('user_id')
                     ->default(fn () => auth()->user()->id),
-                Section::make(__('lesson.settings'))
+                Section::make(__('lesson_admin.settings'))
+                    ->collapsible()
                     ->schema([
                         LlDuration::make('duration'),
                         Checkbox::make(__('preview'))
                             ->default(false)
-                            ->helperText(__('lesson.preview_helper_text')),
+                            ->helperText(__('lesson_admin.preview_helper_text')),
                     ]),
             ])->columns(1);
     }
