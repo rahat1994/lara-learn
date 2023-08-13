@@ -45,7 +45,16 @@ class LessonResource extends Resource
                 Section::make(__('lesson_admin.settings'))
                     ->collapsible()
                     ->schema([
-                        LlDuration::make('duration'),
+                        LlDuration::make('duration')
+                            ->datalist([
+                                'Minutes',
+                                'Hours',
+                                'Days',
+                                'Weeks',
+                                'Months',
+                                'Years',
+
+                            ]),
                         Checkbox::make(__('preview'))
                             ->default(false)
                             ->helperText(__('lesson_admin.preview_helper_text')),
