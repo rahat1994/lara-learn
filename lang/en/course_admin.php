@@ -23,4 +23,19 @@ return [
     'featured_review_helper_text' => 'A good review to promote the course.',
     'external_link_helper_text' => 'Normally used for offline classes. Ex: link to a contact page. Format: https://google.com',
     'preview_helper_text' => 'Check this box to make this lesson available for preview.',
+
+    'pricing' => 'Pricing',
+    'regular_price' => 'Regular Price',
+    'sale_price' => 'Sale price',
+
+    'extra_information' => 'Extra Information',
+    'requirements' => 'Requirements',
+    'requirement_placeholder' => 'Ex: A computer with internet connection',
+    'target_audience' => 'Target Audience',
+    'target_audience_placeholder' => 'Ex: Anyone who wants to learn about ...',
+    'key_features' => 'Key Features',
+    'key_feature_placeholder' => 'Ex: 10 hours of video, 5 articles, 2 downloadable resources, ...',
+
+    'evaluation' => 'Evaluation',
+    'evaluation_helper_text' => 'Choose the evaluation method for this course.',
 ];
