@@ -47,13 +47,15 @@ class CourseResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')
+                    ->label(__('forms.title'))
                     ->autofocus()
                     ->required()
                     ->maxLength(255)
                     ->placeholder(__('forms.title')),
                 RichEditor::make('description')
                     ->required()
-                    ->placeholder(__('forms.description')),
+                    ->label(__('forms.description'))
+                    ->placeholder(__('forms.description_placeholder')),
                 FileUpload::make('image')
                     ->image()
                     ->directory('course_featured_images')
@@ -70,11 +72,10 @@ class CourseResource extends Resource
                                         'Days',
                                         'Weeks',
                                         'Months',
-                                        'Years',
-
+                                        'Years'
                                     ]),
                                 Checkbox::make('allow_repurchase')
-                                    ->default(false)
+                                    ->default(true)
                                     ->helperText(__('course_admin.allow_repurchase_helper_text')),
                                 Select::make('course_level')
                                     ->helperText(__('course_admin.course_level_helper_text'))
@@ -114,6 +115,7 @@ class CourseResource extends Resource
                             ]),
                             Tab::make(__('course_admin.pricing'))->schema([
                                 TextInput::make('regular_price')
+                                    ->label(__('course_admin.regular_price'))
                                     ->numeric()
                                     ->default(0)
                                     ->required(),
@@ -125,22 +127,25 @@ class CourseResource extends Resource
                                     ->default(false),
                             ]),
                             Tab::make(__('course_admin.extra_information'))->schema([
-                                Repeater::make(__('course_admin.requirements'))
-
+                                Repeater::make('requirements')
+                                    ->label(__('course_admin.requirements'))
+                                    ->defaultItems(0)
                                     ->schema([
                                         TextInput::make('requirement')
                                             ->placeholder(__('course_admin.requirement_placeholder'))
                                             ->required(),
                                     ]),
-                                Repeater::make(__('course_admin.target_audience'))
-
+                                Repeater::make('target_audience')
+                                    ->label(__('course_admin.target_audience'))
+                                    ->defaultItems(0)
                                     ->schema([
                                         TextInput::make('target_audience')
-                                            ->placeholder(__('course_admin.requirement_placeholder'))
+                                            ->placeholder(__('course_admin.target_audience_placeholder'))
                                             ->required(),
                                     ]),
-                                Repeater::make(__('course_admin.key_features'))
-
+                                Repeater::make('key_features')
+                                    ->label(__('course_admin.key_features'))
+                                    ->defaultItems(0)
                                     ->schema([
                                         TextInput::make('key_features')
                                             ->placeholder(__('course_admin.key_feature_placeholder'))
