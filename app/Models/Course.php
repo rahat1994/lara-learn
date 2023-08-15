@@ -25,7 +25,7 @@ class Course extends Model
         'retake_course',
         'featured_list',
         'featured_review',
-        'extarnal_link',
+        'external_link',
         'regular_price',
         'sale_price',
         'free_course',
@@ -49,6 +49,12 @@ class Course extends Model
             ]
         ];
     }
+
+    protected $casts = [
+        'requirements' => 'array',
+        'target_audience' => 'array',
+        'key_features' => 'array'
+    ];
 
     public function user()
     {
