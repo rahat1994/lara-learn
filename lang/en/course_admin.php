@@ -9,7 +9,7 @@ return [
     |
     |
     */
-
+    'manage' => 'Manage',
     'general_settings' => 'General Settings',
     'settings' => 'Settings',
     'allow_repurchase_helper_text' => 'Allow users to repurchase this course after it has been finished or blocked (Do not apply to free courses).',
@@ -38,4 +38,5 @@ return [
 
     'evaluation' => 'Evaluation',
     'evaluation_helper_text' => 'Choose the evaluation method for this course.',
+
 ];

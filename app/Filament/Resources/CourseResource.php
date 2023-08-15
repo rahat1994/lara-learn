@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CourseResource\Pages;
 use App\Filament\Resources\CourseResource\RelationManagers;
+use App\Filament\Resources\CourseResource\Tables\SingleActions\ManageCourseAction;
 use App\Forms\Components\LlDuration;
 use App\Models\Course;
 use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
@@ -193,8 +194,11 @@ class CourseResource extends Resource
                 //
             ])
             ->actions([
+                ManageCourseAction::make()
+                    ->url(fn (Course $record): string => static::getUrl('edit', ['record' => $record->id])),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
