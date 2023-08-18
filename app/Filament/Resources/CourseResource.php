@@ -195,7 +195,7 @@ class CourseResource extends Resource
             ])
             ->actions([
                 ManageCourseAction::make()
-                    ->url(fn (Course $record): string => static::getUrl('edit', ['record' => $record->id])),
+                    ->url(fn (Course $record): string => static::getUrl('course-dashboard', ['record' => $record->id])),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
 
@@ -219,6 +219,11 @@ class CourseResource extends Resource
             'create' => Pages\CreateCourse::route('/create'),
             'view' => Pages\ViewCourse::route('/{record}'),
             'edit' => Pages\EditCourse::route('/edit/{record}'),
+            'course-dashboard' => Pages\CourseDashboard::route('/{record}/dashboard'),
+            'manage-lessons' => Pages\ManageLessons::route('/{record}/manage-lessons'),
+            'student-list' => Pages\CourseStudentList::route('/{record}/student-list'),
+            'settings' => Pages\CourseSettings::route('/{record}/settings'),
+            'general-info' => Pages\CourseDashboard::route('/{record}/general-info'),
         ];
     }
 
@@ -226,9 +231,35 @@ class CourseResource extends Resource
     {
         return FilamentPageSidebar::make()
             ->setNavigationItems([
-                PageNavigationItem::make('lessons')
+                PageNavigationItem::make('Dashboard')
                     ->url(function () use ($record) {
-                        return static::getUrl('lessons', ['record' => $record->id]);
+                        return static::getUrl('course-dashboard', ['record' => $record->id]);
+                    })->isActiveWhen(function () {
+                        return request()->route()->getName() == 'filament.resources.courses.course-dashboard';
+                    })->icon('heroicon-o-collection'),
+                PageNavigationItem::make('Manage Lessons')
+                    ->url(function () use ($record) {
+                        return static::getUrl('manage-lessons', ['record' => $record->id]);
+                    })->isActiveWhen(function () {
+                        return request()->route()->getName() == 'filament.resources.courses.manage-lessons';
+                    })->icon('heroicon-o-collection'),
+                PageNavigationItem::make('Student List')
+                    ->url(function () use ($record) {
+                        return static::getUrl('student-list', ['record' => $record->id]);
+                    })->isActiveWhen(function () {
+                        return request()->route()->getName() == 'filament.resources.courses.student-list';
+                    })->icon('heroicon-o-collection'),
+                PageNavigationItem::make('Settings')
+                    ->url(function () use ($record) {
+                        return static::getUrl('settings', ['record' => $record->id]);
+                    })->isActiveWhen(function () {
+                        return request()->route()->getName() == 'filament.resources.courses.settings';
+                    })->icon('heroicon-o-collection'),
+                PageNavigationItem::make('Genral Info')
+                    ->url(function () use ($record) {
+                        return static::getUrl('general-info', ['record' => $record->id]);
+                    })->isActiveWhen(function () {
+                        return request()->route()->getName() == 'filament.resources.courses.general-info';
                     })->icon('heroicon-o-collection'),
             ]);
     }
