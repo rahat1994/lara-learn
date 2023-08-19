@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CourseResource\Pages;
 use App\Filament\Resources\CourseResource\RelationManagers;
 use App\Filament\Resources\CourseResource\Tables\SingleActions\ManageCourseAction;
+use App\Filament\Resources\CourseResource\Widgets\CourseSaleChart;
 use App\Forms\Components\LlDuration;
 use App\Models\Course;
 use AymanAlhattami\FilamentPageWithSidebar\FilamentPageSidebar;
@@ -262,5 +263,12 @@ class CourseResource extends Resource
                         return request()->route()->getName() == 'filament.resources.courses.general-info';
                     })->icon('heroicon-o-collection'),
             ]);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CourseSaleChart::class
+        ];
     }
 }
