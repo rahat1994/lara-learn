@@ -28,5 +28,9 @@ class LaraLearnServiceProvider extends ServiceProvider
                     ->icon('heroicon-s-academic-cap'),
             ]);
         });
+
+        Filament::registerScripts([
+            'https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js'
+        ]);
     }
 }
