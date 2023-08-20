@@ -221,7 +221,7 @@ class CourseResource extends Resource
             'view' => Pages\ViewCourse::route('/{record}'),
             'edit' => Pages\EditCourse::route('/edit/{record}'),
             'course-dashboard' => Pages\CourseDashboard::route('/{record}/dashboard'),
-            'manage-lessons' => Pages\ManageLessons::route('/{record}/manage-lessons'),
+            'manage-lessons' => Pages\ManageCurriculums::route('/{record}/manage-lessons'),
             'student-list' => Pages\CourseStudentList::route('/{record}/student-list'),
             'settings' => Pages\CourseSettings::route('/{record}/settings'),
             'general-info' => Pages\CourseDashboard::route('/{record}/general-info'),
