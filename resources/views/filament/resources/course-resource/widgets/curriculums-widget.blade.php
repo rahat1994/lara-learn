@@ -5,17 +5,13 @@
             <ul class="p-6" x-ref="items" id="items">
                 <template x-for="value in list" x-ref="list_template">
                     <li class="flex items-center border rounded shadow bg-white p-4 m-4" :data-id="value">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        <span class="text-sm font-bold text-gray-600" x-text="value.name">
-                        </span>
+                        <span class="text-sm font-bold text-gray-600" x-text="value.title"></span>
                     </li>
                 </template>
             </ul>
 
-            <div class="flex justify-center">
-                <button x-on:click="$wire.updateLessonOrder(list)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div class="flex">
+                <button x-on:click="$wire.updateLessonOrder(list)" class="hover:bg-blue-700 font-bold py-2 px-4 rounded">
                     Update Lesson Order
                 </button>
             </div>
@@ -26,13 +22,16 @@
                 Alpine.data('sort', () => ({
                     list: [{
                         id: 1,
-                        name: "John",
+                        title: "Lesson 1",
+                        type: 'lesson'
                     }, {
                         id: 2,
-                        name: "rob",
+                        title: "Quiz 1",
+                        type: 'quiz'
                     }, {
-                        id: 3,
-                        name: "Rahat",
+                        id: 2,
+                        title: "Lesson 3",
+                        type: 'lesson'
                     }],
                     init() {
                         Sortable.create(this.$refs.items, {

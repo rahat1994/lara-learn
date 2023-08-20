@@ -11,6 +11,8 @@ use Filament\Resources\Pages\Page;
 class ManageCurriculums extends Page
 {
     protected static string $resource = CourseResource::class;
+
+    protected static ?string $title = 'Course Curriculum';
     public Course $record;
     protected static string $view = 'filament.resources.course-resource.pages.manage-curriculums';
 
