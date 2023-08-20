@@ -30,7 +30,8 @@ class LaraLearnServiceProvider extends ServiceProvider
         });
 
         Filament::registerScripts([
-            'https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js'
+            // 'https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js'
         ]);
     }
 }
