@@ -22,16 +22,21 @@
                 Alpine.data('sort', () => ({
                     list: [{
                         id: 1,
-                        title: "Lesson 1",
-                        type: 'lesson'
-                    }, {
-                        id: 2,
-                        title: "Quiz 1",
-                        type: 'quiz'
-                    }, {
-                        id: 2,
-                        title: "Lesson 3",
-                        type: 'lesson'
+                        title: "Curriculum 1",
+                        description: "Curriculum 1 description",
+                        modules: [{
+                            id: 1,
+                            title: "Lesson 1",
+                            type: 'lesson'
+                        }, {
+                            id: 2,
+                            title: "Quiz 1",
+                            type: 'quiz'
+                        }, {
+                            id: 2,
+                            title: "Lesson 3",
+                            type: 'lesson'
+                        }]
                     }],
                     init() {
                         Sortable.create(this.$refs.items, {
