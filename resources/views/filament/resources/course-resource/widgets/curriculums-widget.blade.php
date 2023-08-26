@@ -1,17 +1,24 @@
 <x-filament::widget>
     <x-filament::card>
 
-        <div class="container mx-auto" x-data="sort()" x-init="init()">
-            <ul class="p-6" x-ref="items" id="items">
+        <div x-data="sort()" x-init="init()">
+            <ul x-ref="items" id="items">
                 <template x-for="value in list" x-ref="list_template">
-                    <li class="flex items-center border rounded shadow bg-white p-4 m-4" :data-id="value">
-                        <span class="text-sm font-bold text-gray-600" x-text="value.title"></span>
+                    <li class="px-2 py-1 flex flex-col" :data-id="value.id">
+                        <div class="basis-1" x-text="value.title"></div>
+                        <div class="basis-1" x-text="value.description"></div>
+                        <ul class="basis-1">
+                            <template x-for="module in value.modules">
+                                <li x-text="module.title" :data-id="module.id"></li>
+                            </template>
+                        </ul>
                     </li>
+
                 </template>
             </ul>
 
             <div class="flex">
-                <button x-on:click="$wire.updateLessonOrder(list)" class="hover:bg-blue-700 font-bold py-2 px-4 rounded">
+                <button x-on:click="$wire.updateLessonOrder(list)">
                     Update Lesson Order
                 </button>
             </div>
@@ -21,24 +28,45 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.data('sort', () => ({
                     list: [{
-                        id: 1,
-                        title: "Curriculum 1",
-                        description: "Curriculum 1 description",
-                        modules: [{
                             id: 1,
-                            title: "Lesson 1",
-                            type: 'lesson'
-                        }, {
+                            title: "Curriculum 1",
+                            description: "Curriculum 1 description",
+                            modules: [{
+                                id: 1,
+                                title: "Lesson 1",
+                                type: 'lesson'
+                            }, {
+                                id: 2,
+                                title: "Quiz 1",
+                                type: 'quiz'
+                            }, {
+                                id: 2,
+                                title: "Lesson 3",
+                                type: 'lesson'
+                            }]
+                        },
+                        {
                             id: 2,
-                            title: "Quiz 1",
-                            type: 'quiz'
-                        }, {
-                            id: 2,
-                            title: "Lesson 3",
-                            type: 'lesson'
-                        }]
-                    }],
+                            title: "Curriculum 2",
+                            description: "Curriculum 1 description",
+                            modules: [{
+                                id: 1,
+                                title: "Lesson 1",
+                                type: 'lesson'
+                            }, {
+                                id: 2,
+                                title: "Quiz 1",
+                                type: 'quiz'
+                            }, {
+                                id: 2,
+                                title: "Lesson 3",
+                                type: 'lesson'
+                            }]
+                        }
+                    ],
                     init() {
+                        // log the list
+                        console.log(this.list[0])
                         Sortable.create(this.$refs.items, {
                             onEnd: (event) => {
                                 let list = Alpine.raw(this.list);
