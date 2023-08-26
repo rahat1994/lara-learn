@@ -16,9 +16,12 @@
 
                 </template>
             </ul>
-
-            <div class="flex">
-                <button x-on:click="$wire.updateLessonOrder(list)">
+            <!-- bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded -->
+            <div class="flex flex-row-reverse">
+                <button x-on:click="$wire.updateLessonOrder(list)" @class([ 'filament-button filament-button-size-md inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 filament-page-button-action'=> true,
+                    'opacity-50 cursor-not-allowed'=> false,
+                    ])
+                    >
                     Update Lesson Order
                 </button>
             </div>
@@ -29,6 +32,7 @@
 
 
                 Alpine.data('sort', () => ({
+                    changesMade: false,
                     list: [{
                             id: 1,
                             title: "Curriculum 1",
@@ -67,8 +71,6 @@
                         }
                     ],
                     init() {
-                        // get all elemts by class name curriculum_modules
-
 
                         setTimeout(() => {
                             const elements = this.$refs.items.querySelectorAll('.curriculum_modules');
@@ -77,12 +79,12 @@
                                     group: 'curriculum_modules',
                                     onEnd: (event) => {
                                         let list = Alpine.raw(this.list);
-                                        console.log(event.oldIndex);
-                                        console.log(event.newIndex);
-                                        console.log(event.from.id);
-                                        console.log(event.to.id);
-                                        console.log(event.item.dataset.id);
-                                        console.log(event);
+
+                                        let origin_module_index = Number(event.from.id.split('_')[3]) - 1;
+                                        let destination_module_index = Number(event.to.id.split('_')[3]) - 1;
+
+                                        let moved_module = list[origin_module_index].modules.splice(event.oldIndex, 1)[0]
+                                        list[destination_module_index].modules.splice(event.newIndex, 0, moved_module)
                                     },
                                 });
                             });
@@ -95,24 +97,6 @@
                                 let list = Alpine.raw(this.list);
                                 let moved_step = list.splice(event.oldIndex, 1)[0]
                                 list.splice(event.newIndex, 0, moved_step)
-
-                                // HACK update prevKeys to new sort order
-                                let keys = []
-                                for (let step of list) {
-                                    keys.push(step.id)
-                                }
-                                this.$refs.list_template._x_prevKeys = keys
-
-                                // HACK to support inject elements
-                                const elements = this.$refs.list_template
-                                    .parentElement
-                                    .querySelectorAll('li');
-
-                                [].slice.call(elements).forEach((ele, i) => {
-                                    if (ele?._x_dataStack[0]?.i != null) {
-                                        ele._x_dataStack[0].i = i;
-                                    }
-                                });
                             },
                         });
                     },

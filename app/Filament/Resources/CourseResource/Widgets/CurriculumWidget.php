@@ -12,6 +12,6 @@ class CurriculumWidget extends Widget
     public ?Model $record = null;
     public function updateLessonOrder($list)
     {
-        dd($this->record);
+        dd($list);
     }
 }
