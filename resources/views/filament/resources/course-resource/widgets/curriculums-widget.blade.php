@@ -1,36 +1,43 @@
 <x-filament::widget>
     <x-filament::card>
 
-        <div class="bg-gray-100" x-data="sort()" x-init="init()">
+        <div
+        x-ignore
+        ax-load
+        ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('curriculumns-widget') }}"
+        x-data='CurriculumnsWidget()' x-cloak>
             <ul x-ref="items" id="items">
                 <template x-for="value in list" x-ref="list_template">
-                    <li class="px-3 py-2 mt-3 flex flex-col rounded border-2 border-inherit" :data-id="value.id">
-                        <div class="text-2xl subpixel-antialiased font-bold handle cursor-move" x-text="value.title"></div>
+                    <li class="bg-gray-100 px-3 py-2 mb-3 flex flex-col rounded border-2 border-inherit" :data-id="value.id">
+                        <div class="text-2xl subpixel-antialiased font-bold handle cursor-move" x-text="value.title">
+                        </div>
                         <div class="text-sm  font-extralight" x-text="value.description"></div>
-                        <ul class="curriculum_modules p-4" x-bind:id="`curriculum_modules_no_`+value.id">
+                        <ul class="curriculum_modules p-4" x-bind:id="`curriculum_modules_no_` + value.id">
                             <template x-for="module in value.modules">
-                                <li class="p-1 bg-white rounded border-2 border-inherit font-medium" x-text="module.title" :data-id="module.id"></li>
+                                <li class="p-1 bg-white rounded border-2 border-inherit font-medium"
+                                    :data-id="module.id">
+
+
+                                    <span x-text="module.title"></span>
+                                </li>
                             </template>
                         </ul>
                     </li>
 
                 </template>
             </ul>
-            <!-- bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded -->
             <div class="flex flex-row-reverse">
-                <button x-on:click="$wire.updateLessonOrder(list)" @class([ 'filament-button filament-button-size-md inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700 filament-page-button-action'=> true,
-                    'opacity-50 cursor-not-allowed'=> false,
-                    ])
-                    >
+                <button x-on:click="$wire.updateLessonOrder(list)"
+                @class([
+                    'filament-button filament-button-size-md py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 focus:ring-offset-primary-700' => true,
+                ])>
                     Update Lesson Order
                 </button>
             </div>
         </div>
-
+        @push('script')
         <script>
             document.addEventListener('alpine:init', () => {
-
-
                 Alpine.data('sort', () => ({
                     changesMade: false,
                     list: [{
@@ -73,18 +80,25 @@
                     init() {
 
                         setTimeout(() => {
-                            const elements = this.$refs.items.querySelectorAll('.curriculum_modules');
+                            const elements = this.$refs.items.querySelectorAll(
+                                '.curriculum_modules');
                             elements.forEach((ele, i) => {
                                 Sortable.create(ele, {
                                     group: 'curriculum_modules',
                                     onEnd: (event) => {
                                         let list = Alpine.raw(this.list);
 
-                                        let origin_module_index = Number(event.from.id.split('_')[3]) - 1;
-                                        let destination_module_index = Number(event.to.id.split('_')[3]) - 1;
+                                        let origin_module_index = Number(event
+                                            .from.id.split('_')[3]) - 1;
+                                        let destination_module_index = Number(
+                                            event.to.id.split('_')[3]) - 1;
 
-                                        let moved_module = list[origin_module_index].modules.splice(event.oldIndex, 1)[0]
-                                        list[destination_module_index].modules.splice(event.newIndex, 0, moved_module)
+                                        let moved_module = list[
+                                                origin_module_index].modules
+                                            .splice(event.oldIndex, 1)[0]
+                                        list[destination_module_index].modules
+                                            .splice(event.newIndex, 0,
+                                                moved_module)
                                     },
                                 });
                             });
@@ -103,6 +117,8 @@
                 }))
             })
         </script>
+        @endpush
+
 
     </x-filament::card>
 </x-filament::widget>

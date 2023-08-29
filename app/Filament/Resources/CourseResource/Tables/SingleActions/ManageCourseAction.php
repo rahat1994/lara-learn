@@ -4,8 +4,6 @@ namespace App\Filament\Resources\CourseResource\Tables\SingleActions;
 
 use Closure;
 use Filament\Forms\ComponentContainer;
-use Filament\Support\Actions\Concerns\CanCustomizeProcess;
-use Filament\Tables\Actions\Concerns\InteractsWithRelationship;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,8 +11,6 @@ use Illuminate\Support\Arr;
 
 class ManageCourseAction extends Action
 {
-    use CanCustomizeProcess;
-    use InteractsWithRelationship;
 
     protected ?Closure $mutateRecordDataUsing = null;
 

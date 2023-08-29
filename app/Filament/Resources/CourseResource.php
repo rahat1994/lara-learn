@@ -23,9 +23,9 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,11 +35,11 @@ class CourseResource extends Resource
 {
     protected static ?string $model = Course::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
     protected static ?string $navigationGroup = 'Lara Learn';
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
@@ -237,31 +237,31 @@ class CourseResource extends Resource
                         return static::getUrl('course-dashboard', ['record' => $record->id]);
                     })->isActiveWhen(function () {
                         return request()->route()->getName() == 'filament.resources.courses.course-dashboard';
-                    })->icon('heroicon-o-collection'),
+                    })->icon('heroicon-o-rectangle-stack'),
                 PageNavigationItem::make('Manage Curriculum')
                     ->url(function () use ($record) {
                         return static::getUrl('manage-curriculum', ['record' => $record->id]);
                     })->isActiveWhen(function () {
                         return request()->route()->getName() == 'filament.resources.courses.manage-curriculum';
-                    })->icon('heroicon-o-collection'),
+                    })->icon('heroicon-o-rectangle-stack'),
                 PageNavigationItem::make('Student List')
                     ->url(function () use ($record) {
                         return static::getUrl('student-list', ['record' => $record->id]);
                     })->isActiveWhen(function () {
                         return request()->route()->getName() == 'filament.resources.courses.student-list';
-                    })->icon('heroicon-o-collection'),
+                    })->icon('heroicon-o-rectangle-stack'),
                 PageNavigationItem::make('Settings')
                     ->url(function () use ($record) {
                         return static::getUrl('settings', ['record' => $record->id]);
                     })->isActiveWhen(function () {
                         return request()->route()->getName() == 'filament.resources.courses.settings';
-                    })->icon('heroicon-o-collection'),
+                    })->icon('heroicon-o-rectangle-stack'),
                 PageNavigationItem::make('Genral Info')
                     ->url(function () use ($record) {
                         return static::getUrl('general-info', ['record' => $record->id]);
                     })->isActiveWhen(function () {
                         return request()->route()->getName() == 'filament.resources.courses.general-info';
-                    })->icon('heroicon-o-collection'),
+                    })->icon('heroicon-o-rectangle-stack'),
             ]);
     }
 
