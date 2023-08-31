@@ -4,17 +4,18 @@
         <div
         x-ignore
         ax-load
+        x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('sortable-js'))]"
         ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('curriculumns-widget') }}"
         x-data='CurriculumnsWidget()' x-cloak>
             <ul x-ref="items" id="items">
                 <template x-for="value in list" x-ref="list_template">
-                    <li class="bg-gray-100 px-3 py-2 mb-3 flex flex-col rounded border-2 border-inherit" :data-id="value.id">
+                    <li class="px-3 py-2 mb-3 flex flex-col rounded border-2 border-inherit" :data-id="value.id">
                         <div class="text-2xl subpixel-antialiased font-bold handle cursor-move" x-text="value.title">
                         </div>
                         <div class="text-sm  font-extralight" x-text="value.description"></div>
                         <ul class="curriculum_modules p-4" x-bind:id="`curriculum_modules_no_` + value.id">
                             <template x-for="module in value.modules">
-                                <li class="p-1 bg-white rounded border-2 border-inherit font-medium"
+                                <li class="p-1 rounded border-2 border-inherit font-medium"
                                     :data-id="module.id">
 
 

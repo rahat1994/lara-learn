@@ -40,30 +40,33 @@ export default function CurriculumnsWidget() {
         ],
         init: function () {
             console.log(this.$refs)
-            const elements = this.$refs.items.querySelectorAll(
-                '.curriculum_modules');
 
-            elements.forEach((ele, i) => {
-                console.log(ele)
-                Sortable.create(ele, {
-                    group: 'curriculum_modules',
-                    onEnd: (event) => {
-                        //let list = Alpine.raw(list);
-                        console.log(list);
-                        let origin_module_index = Number(event
-                            .from.id.split('_')[3]) - 1;
-                        let destination_module_index = Number(
-                            event.to.id.split('_')[3]) - 1;
+            setTimeout(() => {
+                const elements = this.$refs.items.querySelectorAll(
+                    '.curriculum_modules');
+                elements.forEach((ele, i) => {
+                    console.log(ele);
+                    Sortable.create(ele, {
+                        group: 'curriculum_modules',
+                        onEnd: (event) => {
+                            let list = Alpine.raw(this.list);
 
-                        let moved_module = list[
-                            origin_module_index].modules
-                            .splice(event.oldIndex, 1)[0]
-                        list[destination_module_index].modules
-                            .splice(event.newIndex, 0,
-                                moved_module)
-                    },
+                            let origin_module_index = Number(event
+                                .from.id.split('_')[3]) - 1;
+                            let destination_module_index = Number(
+                                event.to.id.split('_')[3]) - 1;
+
+                            let moved_module = list[
+                                origin_module_index].modules
+                                .splice(event.oldIndex, 1)[0]
+                            list[destination_module_index].modules
+                                .splice(event.newIndex, 0,
+                                    moved_module)
+                        },
+                    });
                 });
-            });
+            }, 100);
+
             Sortable.create(this.$refs.items, {
                 handle: '.handle',
                 onEnd: (event) => {
